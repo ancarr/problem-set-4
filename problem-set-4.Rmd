@@ -59,6 +59,8 @@ answer1 <- projects %>% select(project.num, institute) %>%
   slice(1:1) %>% 
   arrange(desc(total.cost)) 
 
+answer1
+
 ```
 
 ## Problem 2
@@ -77,12 +79,16 @@ change_pubs_year <- answer1 %>%
   summarize(total.pubs = n()) %>%
   na.omit()
 
+change_pubs_year
+
 ```
 
 ```{r problem_2}
 
 change_pubs_year_graph <- ggplot(change_pubs_year, aes(pub.year, total.pubs)) + geom_point() + 
    geom_line() + ylim(0,25)
+
+change_pubs_year_graph
 
 ```
 
@@ -97,6 +103,8 @@ total_clinical_studies <- projects %>%
   inner_join(clinical_studies) %>% 
   group_by(institute) %>% 
   summarise(total.trials = n_distinct(trial.id)) 
+
+total_clinical_studies
 
 ```
 
@@ -114,6 +122,8 @@ cost_pubs_correlations_total <- projects %>%
   group_by(institute) %>% 
   summarise_each(funs(sum), inst.cost = total.cost, inst.pubs = n.pubs) %>% 
   do(tidy(cor(.$inst.cost, .$inst.pubs))) 
+
+cost_pubs_correlations_total
   
 # Correlaton between cost and publications for each institute 
 cost_pubs_correlations_byinstitute <- projects %>% 
@@ -122,6 +132,8 @@ cost_pubs_correlations_byinstitute <- projects %>%
   na.omit() %>% 
   group_by(institute) %>% 
   do(tidy(cor(.$total.cost, .$n.pubs)))  
+
+cost_pubs_correlations_byinstitute
 
 ```
 
